@@ -1,3 +1,5 @@
+import 'package:ecommerce_firebase/screens/auth-ui/signin_screen.dart';
+import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const UserScreen(),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      // home: const SigninScreen(),
+      home: const SignupScreen(),
     );
   }
 }
