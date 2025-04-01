@@ -1,4 +1,5 @@
 import 'package:ecommerce_firebase/controller/google_signin_controller.dart';
+import 'package:ecommerce_firebase/screens/auth-ui/signin_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,8 +41,8 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 12,
             ),
             InkWell(
-              onTap: () async{
-              await _googleSigninController.signInWithGoogle();
+              onTap: () async {
+                await _googleSigninController.signInWithGoogle();
                 //  bool success = await _googleSigninController.signInWithGoogle();
                 // if (success) {
                 //   print('Google Sign-in Successful');
@@ -80,12 +81,12 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            SizedBox( 
               height: Get.height / 50,
             ),
             InkWell(
               onTap: () {
-               
+                Get.to(() => const SigninScreen());
               },
               child: Container(
                 height: Get.height / 12,

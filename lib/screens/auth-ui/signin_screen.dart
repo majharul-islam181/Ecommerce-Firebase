@@ -91,7 +91,7 @@ class SigninScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.offAll(() => const SignupScreen());
+              Get.to(() => const SignupScreen());
             },
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
