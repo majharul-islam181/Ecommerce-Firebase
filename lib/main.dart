@@ -1,7 +1,9 @@
 import 'package:ecommerce_firebase/firebase_options.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
+import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 
 void main() async {
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
       // home: const UserScreen(),
       // home: const SplashScreen(),
       // home: const SigninScreen(),
-      home: const SignupScreen(),
+      // home: const SignupScreen(),
+      home: WelcomeScreen(),
+        builder: EasyLoading.init(),
     );
   }
 }

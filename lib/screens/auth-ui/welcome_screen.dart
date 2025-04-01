@@ -1,15 +1,13 @@
+import 'package:ecommerce_firebase/controller/google_signin_controller.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class WelcomeScreen extends StatelessWidget {
+  final GoogleSigninController _googleSigninController =
+      Get.put(GoogleSigninController());
+  WelcomeScreen({super.key});
 
-  @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           "Welcome to Ecombd",
           style: TextStyle(color: AppColors.appTextColor),
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
@@ -41,7 +40,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: Get.height / 12,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async{
+              await _googleSigninController.signInWithGoogle();
+                //  bool success = await _googleSigninController.signInWithGoogle();
+                // if (success) {
+                //   print('Google Sign-in Successful');
+                // } else {
+                //   print('Google Sign-in Failed');
+                // }
+                print('pressed button google with ');
+              },
               child: Container(
                 height: Get.height / 12,
                 width: Get.width / 1.2,
@@ -76,7 +84,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: Get.height / 50,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+               
+              },
               child: Container(
                 height: Get.height / 12,
                 width: Get.width / 1.2,

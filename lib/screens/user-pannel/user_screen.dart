@@ -1,6 +1,9 @@
+import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:ecommerce_firebase/utils/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -20,6 +23,19 @@ class _UserScreenState extends State<UserScreen> {
         ),
         centerTitle: true,
         backgroundColor: AppColors.appMainColor,
+        actions: [
+          InkWell(
+              onTap: () async {
+                GoogleSignIn googleSignIn = GoogleSignIn();
+               await googleSignIn.signOut();
+
+                Get.offAll(() => WelcomeScreen());
+              },
+              child: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              )),
+        ],
       ),
     );
   }
