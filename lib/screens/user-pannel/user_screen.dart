@@ -1,6 +1,7 @@
 import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:ecommerce_firebase/utils/strings.dart';
+import 'package:ecommerce_firebase/widgets/banner-widget.dart';
 import 'package:ecommerce_firebase/widgets/custom-drawer-widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +44,17 @@ class _UserScreenState extends State<UserScreen> {
         ],
       ),
       drawer: const DrawerWidget(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: Get.height / 90,
+            ),
+            const BannerWidget(),
+          ],
+        ),
+      ),
     );
   }
 }
