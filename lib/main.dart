@@ -1,5 +1,6 @@
 import 'package:ecommerce_firebase/firebase_options.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
+import 'package:ecommerce_firebase/screens/auth-ui/splash_screen.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const UserScreen(),
-      // home: const SplashScreen(),
+      home: const SplashScreen(),
       // home: const SigninScreen(),
       // home: const SignupScreen(),
-      home: WelcomeScreen(),
+      // home: WelcomeScreen(),
         builder: EasyLoading.init(),
     );
   }
