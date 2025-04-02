@@ -1,4 +1,5 @@
 import 'package:ecommerce_firebase/controller/sign_in_controller.dart';
+import 'package:ecommerce_firebase/screens/auth-ui/forget-password-screen.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
 import 'package:ecommerce_firebase/screens/user-pannel/user_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
@@ -71,12 +72,17 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                 )),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            alignment: Alignment.centerRight,
-            child: const Text(
-              'Forget Password?',
-              style: TextStyle(color: AppColors.appMainColor),
+          InkWell(
+            onTap: () {
+              Get.to(() => const ForgetPasswordScreen());
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              alignment: Alignment.centerRight,
+              child: const Text(
+                'Forget Password?',
+                style: TextStyle(color: AppColors.appMainColor),
+              ),
             ),
           ),
           SizedBox(

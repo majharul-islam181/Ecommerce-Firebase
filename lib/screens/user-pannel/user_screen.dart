@@ -1,6 +1,8 @@
 import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:ecommerce_firebase/utils/strings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,7 +29,9 @@ class _UserScreenState extends State<UserScreen> {
           InkWell(
               onTap: () async {
                 GoogleSignIn googleSignIn = GoogleSignIn();
-               await googleSignIn.signOut();
+                FirebaseAuth _auth = FirebaseAuth.instance;
+                await _auth.signOut();
+                await googleSignIn.signOut();
 
                 Get.offAll(() => WelcomeScreen());
               },
