@@ -1,4 +1,6 @@
 import 'package:ecommerce_firebase/screens/auth-ui/welcome_screen.dart';
+import 'package:ecommerce_firebase/screens/user-pannel/all-categories-screen.dart';
+import 'package:ecommerce_firebase/screens/user-pannel/all-flash-sale-products.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:ecommerce_firebase/utils/strings.dart';
 import 'package:ecommerce_firebase/widgets/banner-widget.dart';
@@ -58,14 +60,18 @@ class _UserScreenState extends State<UserScreen> {
             HeadingWidget(
               headingTitle: 'Categories',
               headingSubTitle: 'Accroding to your budget',
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const AllCategoriesScreen());
+              },
               buttonText: 'see more',
             ),
             const CategoriesWidget(),
             HeadingWidget(
               headingTitle: 'Flash Sale',
               headingSubTitle: 'Accroding to your budget',
-              onTap: () {},
+              onTap: () {
+                 Get.to(() => const AllFlashSaleProductScreen());
+              },
               buttonText: 'see more',
             ),
             const FlashSaleWidget(),
