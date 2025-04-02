@@ -1,4 +1,6 @@
+import 'package:ecommerce_firebase/controller/get-user-data-controller.dart';
 import 'package:ecommerce_firebase/controller/sign_in_controller.dart';
+import 'package:ecommerce_firebase/screens/admin-pannel/admin_screen.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/forget-password-screen.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
 import 'package:ecommerce_firebase/screens/user-pannel/user_screen.dart';
@@ -16,6 +18,9 @@ class SigninScreen extends StatefulWidget {
 
 class _SigninScreenState extends State<SigninScreen> {
   final SignInController signInController = Get.put(SignInController());
+
+  final GetUserDataController getUserDataController =
+      Get.put(GetUserDataController());
   TextEditingController userEmail = TextEditingController();
   TextEditingController userPassword = TextEditingController();
   @override
@@ -103,17 +108,30 @@ class _SigninScreenState extends State<SigninScreen> {
               } else {
                 UserCredential? userCredential =
                     await signInController.signInMethod(email, password);
+
+                var userData = await getUserDataController
+                    .getUserData(userCredential!.user!.uid);
                 if (userCredential != null) {
                   if (userCredential.user!.emailVerified) {
-                    Get.snackbar(
-                      "Success",
-                      "Login successfully",
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: AppColors.appSecondaryColor,
-                      colorText: AppColors.appTextColor,
-                    );
-
-                    Get.offAll(() => const UserScreen());
+                    if (userData[0]['isAdmin'] == true) {
+                      Get.offAll(() => const AdminScreen());
+                      Get.snackbar(
+                        "Success Admin",
+                        "Login successfully",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: AppColors.appSecondaryColor,
+                        colorText: AppColors.appTextColor,
+                      );
+                    } else {
+                      Get.offAll(() => const UserScreen());
+                      Get.snackbar(
+                        "Success User login",
+                        "Login successfully",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: AppColors.appSecondaryColor,
+                        colorText: AppColors.appTextColor,
+                      );
+                    }
                   } else {
                     Get.snackbar(
                       "Error",
