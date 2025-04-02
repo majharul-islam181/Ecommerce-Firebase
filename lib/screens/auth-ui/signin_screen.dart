@@ -1,11 +1,22 @@
+import 'package:ecommerce_firebase/controller/sign_in_controller.dart';
 import 'package:ecommerce_firebase/screens/auth-ui/signup_screen.dart';
+import 'package:ecommerce_firebase/screens/user-pannel/user_screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
 
+  @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
+  final SignInController signInController = Get.put(SignInController());
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +32,7 @@ class SigninScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
+                controller: userEmail,
                 cursorColor: AppColors.appSecondaryColor,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -36,19 +48,28 @@ class SigninScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 5),
             width: Get.width,
             child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextFormField(
-                cursorColor: AppColors.appSecondaryColor,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(19),
-                    ),
-                    hintText: "Password",
-                    suffixIcon: const Icon(Icons.visibility),
-                    prefixIcon: const Icon(Icons.password)),
-              ),
-            ),
+                padding: const EdgeInsets.all(10),
+                child: Obx(
+                  () => TextFormField(
+                    controller: userPassword,
+                    obscureText: signInController.isPasswordVisible.value,
+                    cursorColor: AppColors.appSecondaryColor,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(19),
+                        ),
+                        hintText: "Password",
+                        suffixIcon: InkWell(
+                            onTap: () {
+                              signInController.isPasswordVisible.toggle();
+                            },
+                            child: signInController.isPasswordVisible.value
+                                ? const Icon(Icons.visibility_off)
+                                : const Icon(Icons.visibility)),
+                        prefixIcon: const Icon(Icons.password)),
+                  ),
+                )),
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -62,7 +83,51 @@ class SigninScreen extends StatelessWidget {
             height: Get.height / 12,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              String email = userEmail.text.trim();
+              String password = userPassword.text.trim();
+              if (email.isEmpty || password.isEmpty) {
+                Get.snackbar(
+                  "Error",
+                  "Please Enter all details",
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: AppColors.appSecondaryColor,
+                  colorText: AppColors.appTextColor,
+                );
+              } else {
+                UserCredential? userCredential =
+                    await signInController.signInMethod(email, password);
+                if (userCredential != null) {
+                  if (userCredential.user!.emailVerified) {
+                    Get.snackbar(
+                      "Success",
+                      "Login successfully",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: AppColors.appSecondaryColor,
+                      colorText: AppColors.appTextColor,
+                    );
+
+                    Get.offAll(() => const UserScreen());
+                  } else {
+                    Get.snackbar(
+                      "Error",
+                      "Please Verify your emaiil before login",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: AppColors.appSecondaryColor,
+                      colorText: AppColors.appTextColor,
+                    );
+                  }
+                } else {
+                  Get.snackbar(
+                    "Error",
+                    "Please try again",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: AppColors.appSecondaryColor,
+                    colorText: AppColors.appTextColor,
+                  );
+                }
+              }
+            },
             child: Container(
               height: Get.height / 12,
               width: Get.width / 1.2,
