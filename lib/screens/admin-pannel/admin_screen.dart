@@ -1,3 +1,4 @@
+import 'package:ecommerce_firebase/widgets/custom-drawer-widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -11,7 +12,10 @@ class _AdminScreenState extends State<AdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Admin"),),
+      appBar: AppBar(
+        title: const Text("Admin"),
+      ),
+      drawer: const DrawerWidget(),
     );
   }
 }
