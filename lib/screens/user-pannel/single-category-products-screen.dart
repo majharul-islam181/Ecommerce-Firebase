@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_firebase/models/product-model.dart';
+import 'package:ecommerce_firebase/screens/user-pannel/product-deatils-screen.dart';
 import 'package:ecommerce_firebase/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -94,8 +95,8 @@ class _AllSingleCategoryProductsScreenState
                 return Row(
                   children: [
                     GestureDetector(
-                      // onTap: () => Get.to(() =>
-                      //     ProductDetailsScreen(productModel: productModel)),
+                      onTap: () => Get.to(() =>
+                          ProductDetailsScreen(productModel: productModel)),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Container(
